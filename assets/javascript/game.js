@@ -14,7 +14,7 @@ function randomWord() {
     console.log(chosenWord);
 }
 console.log(word);
-//When the word is chosen, display the corresponding amount of blanks on screen.
+//When the word is chosen, display the corresponding amount of blanks on screen. 
 function wordToArray(word) {
     // console.log(word);
     console.log(word.split(""));
@@ -45,11 +45,14 @@ function minusChances() {
     remainingChances.innerHTML = "Chances Left: " + chances;
     if (chances === 0) {
         alert("You lose.")
+        restart()
     }
 }
 function restart() {
-    letterGuess = "";
+    lettersGuessed.innerHTML = "";
+    wrongChoice = [];
     playerGuess = [];
+    chances = 10;
     word = randomWord();
     console.log(word);
     dashes();
@@ -64,7 +67,7 @@ function winCount() {
     var wins = document.getElementById("wins");
     wonGames++
     wins.innerHTML = "Wins: " + wonGames;
-    
+    restart()
 }
 //If the player types a letter, the letter is put into an array of guessed letters.
 var playerGuess = []
@@ -99,9 +102,3 @@ document.onkeyup = function hangman(event) {
         }
     }
 }
-
-
-
-//If a letter is added to the array of incorrect letters, subtract one from the total chances. Total Chances sould be equal to the length of the chosen word.
-
-//Repeat player inputs until the player is out of total chances, or or the word is complete. After the game is finished, the page refreshes.
