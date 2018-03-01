@@ -7,6 +7,7 @@ var wonGames = 0;
 var chances = 10;
 var lettersGuessed = document.getElementById("lettersGuessed")
 var word = randomWord();
+
 //When the player presses a key, a random index from the array is chosen.
 function randomWord() {
     var chosenWord = possibleWords[Math.floor(Math.random() * possibleWords.length)];
@@ -14,7 +15,7 @@ function randomWord() {
     console.log(chosenWord);
 }
 console.log(word);
-//When the word is chosen, display the corresponding amount of blanks on screen.
+//When the word is chosen, display the corresponding amount of blanks on screen. 
 function wordToArray(word) {
     // console.log(word);
     console.log(word.split(""));
@@ -45,11 +46,14 @@ function minusChances() {
     remainingChances.innerHTML = "Chances Left: " + chances;
     if (chances === 0) {
         alert("You lose.")
+        restart()
     }
 }
 function restart() {
-    letterGuess = "";
+    lettersGuessed.innerHTML = "";
+    wrongChoice = [];
     playerGuess = [];
+    chances = 10;
     word = randomWord();
     console.log(word);
     dashes();
@@ -64,13 +68,11 @@ function winCount() {
     var wins = document.getElementById("wins");
     wonGames++
     wins.innerHTML = "Wins: " + wonGames;
-    
+    restart()
 }
 //If the player types a letter, the letter is put into an array of guessed letters.
 var playerGuess = []
 document.onkeyup = function hangman(event) {
-    console.log("testing array");
-    console.log(letterArray);
     //assigns the variable letterGuess to the string of the key pressed
     var letterGuess = String.fromCharCode(event.keyCode).toLowerCase();
     if (playerGuess.indexOf(letterGuess) === -1) {
@@ -80,13 +82,8 @@ document.onkeyup = function hangman(event) {
             for (var j = 0; j < letterArray.length; j++) {
                 if (letterArray[j] === letterGuess) {
                     dashArray[j] = letterGuess;
-                    console.log(dashArray);
-                    console.log("test2");
-                    console.log(letterArray);
                     if (dashArray.toString() == letterArray.toString()) {
                         winCount();
-                        console.log(word);
-                        console.log(letterArray);
                         restart();
                     }
                 }
